@@ -1,1 +1,16 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+/* custom theme */
+$ebs-angular-primary: mat-palette($mat-indigo);
+$ebs-angular-accent: mat-palette($mat-pink, A200, A100, A400);
+$ebs-angular-warn: mat-palette($mat-red);
+
+$ebs-angular-theme: mat-dark-theme($ebs-angular-primary, $ebs-angular-accent, $ebs-angular-warn);
+@include angular-material-theme($ebs-angular-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import './utility.scss';

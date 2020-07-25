@@ -1,0 +1,115 @@
+$mainToolbar_height: 56px;
+$footer_height: 80px;
+
+mat-sidenav {
+  width: 200px;
+
+  a.invisible {
+    height: 0;
+    position: absolute;
+  }
+
+  .sidenav-btn--toggle {
+    cursor: pointer;
+    z-index: 9999;
+  }
+
+  mat-toolbar {
+    min-height: $mainToolbar_height;
+    height: $mainToolbar_height;
+
+    mat-toolbar-row {
+      min-height: $mainToolbar_height;
+      height: $mainToolbar_height;
+    }
+  }
+
+  mat-expansion-panel {
+    border-radius: 0;
+
+    &:not([class*='mat-elevation-z']) {
+      box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    mat-expansion-panel-header {
+      font-size: 16px;
+      padding: 0 16px;
+
+      &.mat-expanded {
+        font-weight: 500;
+        color: #4b5264;
+      }
+
+      .mat-expansion-panel-body {
+        padding: 0 16px 0px;
+      }
+    }
+  }
+}
+
+.icon {
+  padding: 0 14px;
+}
+
+.mainToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: $mainToolbar_height;
+
+  mat-toolbar {
+    min-height: $mainToolbar_height;
+    height: $mainToolbar_height;
+
+    mat-toolbar-row {
+      min-height: $mainToolbar_height;
+      height: $mainToolbar_height;
+      padding: 0px;
+    }
+  }
+
+  .logo {
+    height: 100%;
+    width: 50px;
+    padding: 7px;
+  }
+
+  .logo-full {
+    height: 100%;
+    width: 150px;
+  }
+}
+
+.mainContent {
+  width: 100%;
+}
+
+.mat-sidenav-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  .mat-sidenav-content {
+    .default-content-container {
+      height: 100%;
+    }
+  }
+}
+
+.app-footer {
+  height: $footer_height;
+
+  span {
+    padding: 20px;
+  }
+}
+
+.user-menu {
+  padding-right: 0;
+}
+
+.username-label {
+  cursor: default;
+  pointer-events: none;
+}
