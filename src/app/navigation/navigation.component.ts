@@ -6,6 +6,8 @@ import { Observable, Subscription } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-navigation',
@@ -22,7 +24,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   sidenavSub: Subscription;
   routerSub: Subscription;
 
-  username: string;
+  currentUser: User;
 
   @ViewChild('sidenav') private sidenav: MatSidenav;
   @ViewChild('menuButton') private menuButton: MatButton;
@@ -30,8 +32,11 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
+    private authService: AuthService,
     @Inject(DOCUMENT) private document: any,
   ) {
+    this.authService.currentUser.subscribe(x => this.currentUser = x);
+
     this.routerSub = this.router.events
     .pipe(
       filter(ev => ev instanceof NavigationEnd)
@@ -74,6 +79,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   logout(): void {
-
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -4,56 +4,8 @@
     <mat-toolbar color="accent">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item class="invisible" routerLink="/"></a>
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active">Link</a>
-      <!-- <mat-accordion>
-        <mat-expansion-panel #activitiesMenu [class.mat-elevation-z0]="!activitiesMenu.expanded">
-          <mat-expansion-panel-header>
-            {{ 'NAV.ACTIVITIES' | translate }}
-          </mat-expansion-panel-header>
-          <a mat-list-item routerLink="/activities" routerLinkActive="active"
-            *ngIf="canViewActivities">{{ 'NAV.ACTIVITIES' | translate }}</a>
-          <a mat-list-item routerLink="/activitiesByOpportunities" routerLinkActive="active"
-            *ngIf="canViewActivities">{{ 'NAV.ACTIVITIES_BY_OPPORTUNITIES' | translate }}</a>
-          <a mat-list-item routerLink="/calendar" routerLinkActive="active"
-            *ngIf="canViewCalendar">{{ 'NAV.CALENDAR' | translate }}</a>
-        </mat-expansion-panel>
-        <mat-expansion-panel #configurationMenu [class.mat-elevation-z0]="!configurationMenu.expanded">
-          <mat-expansion-panel-header>
-            {{ 'NAV.CONFIGURATION' | translate }}
-          </mat-expansion-panel-header>
-          <a mat-list-item routerLink="/salespersons" routerLinkActive="active"
-            *ngIf="canViewSalesPersons">{{ 'NAV.SALES_PERSONS' | translate }}</a>
-          <a mat-list-item routerLink="/groups" routerLinkActive="active"
-            *ngIf="canViewGroups">{{ 'NAV.GROUPS' | translate }}</a>
-          <a mat-list-item routerLink="/territories" routerLinkActive="active"
-            *ngIf="canViewTerritories">{{ 'NAV.TERRITORIES' | translate }}</a>
-          <a mat-list-item routerLink="/territoryCallCycles" routerLinkActive="active"
-            *ngIf="canViewTerritoryCallCycles">{{ 'NAV.TERRITORY_CALL_CYCLES' | translate }}</a>
-          <a mat-list-item routerLink="/callCycles" routerLinkActive="active"
-            *ngIf="canViewCallCycles">{{ 'NAV.CALL_CYCLES' | translate }}</a>
-          <a mat-list-item routerLink="/callCycleTypes" routerLinkActive="active"
-            *ngIf="canViewCallCycleTypes">{{ 'NAV.CALL_CYCLE_TYPES' | translate }}</a>
-          <a mat-list-item routerLink="/activitycodes" routerLinkActive="active"
-            *ngIf="canViewActivityCodes">{{ 'NAV.ACTIVITY_CODES' | translate }}</a>
-          <a mat-list-item routerLink="/opportunityStatuses" routerLinkActive="active"
-            *ngIf="canViewOpportunityStatuses">{{ 'NAV.OPPORTUNITY_STATUSES' | translate }}</a>
-          <a mat-list-item routerLink="/opportunityTypes" routerLinkActive="active"
-            *ngIf="canViewOpportunityTypes">{{ 'NAV.OPPORTUNITY_TYPES' | translate }}</a>
-          <a mat-list-item routerLink="/objectives" routerLinkActive="active"
-            *ngIf="canViewObjectives">{{ 'NAV.OBJECTIVES' | translate }}</a>
-          <a mat-list-item routerLink="/settings" routerLinkActive="active"
-            *ngIf="canViewSettings">{{ 'NAV.SETTINGS' | translate }}</a>
-        </mat-expansion-panel>
-        <mat-expansion-panel #prospectsMenu [class.mat-elevation-z0]="!prospectsMenu.expanded">
-          <mat-expansion-panel-header>
-            {{ 'NAV.PROSPECTS' | translate }}
-          </mat-expansion-panel-header>
-          <a mat-list-item routerLink="/prospects" routerLinkActive="active"
-            *ngIf="canViewProspects">{{ 'NAV.PROSPECTS' | translate }}</a>
-          <a mat-list-item routerLink="/prospectcontacts" routerLinkActive="active"
-            *ngIf="canViewProspects">{{ 'NAV.CONTACTS' | translate }}</a>
-        </mat-expansion-panel>
-      </mat-accordion> -->
+      <a mat-list-item routerLink="/persons" routerLinkActive="active">Persons</a>
+      <a mat-list-item routerLink="/families">Families</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -65,33 +17,38 @@
               style="outline: none;">
               <mat-icon aria-label="Side nav toggle icon" style="outline: none;">menu</mat-icon>
             </button>
-            <mat-icon class="logo-full"></mat-icon>
+            <span fxFlex>
+              <img src="../../assets/images/toolbar-logo.png" alt="ebs logo toolbar" class="logo">
+            </span>
 
-            <button mat-icon-button *ngIf="(isHandset$ | async)" [matMenuTriggerFor]="userMenu">
-              <mat-icon>account_circle</mat-icon>
-            </button>
-            <button mat-button *ngIf="(isHandset$ | async)" [matMenuTriggerFor]="userMenu"
-              class="user-menu">
-              <span>{{ username }}</span>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-            <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before">
-              <span mat-menu-item class="username-label" *ngIf="(isHandset$ | async)">
-                <mat-icon>account_circle</mat-icon>{{ username }}
-              </span>
-              <mat-divider *ngIf="(isHandset$ | async)"></mat-divider>
-              <mat-divider></mat-divider>
-              <button mat-menu-item (click)="logout()">
-                <mat-icon></mat-icon>
-                Logout
+            <span fxLayout="row" fxLayoutAlign="end center" class="mr-20">
+              <button mat-button [matMenuTriggerFor]="userMenu"class="user-menu">
+                <mat-icon>account_circle</mat-icon>
+                <mat-icon>expand_more</mat-icon>
               </button>
-            </mat-menu>
+              <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+                <span mat-menu-item class="username-label">
+                  <mat-icon>account_circle</mat-icon>{{ currentUser.person_role }}
+                </span>
+                <mat-divider></mat-divider>
+                <button mat-menu-item (click)="logout()">
+                  <mat-icon>exit_to_app</mat-icon>
+                  Logout
+                </button>
+              </mat-menu>
+            </span>
           </mat-toolbar-row>
         </mat-toolbar>
       </div>
       <div fxFlex="noshrink">
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap">
           <div class="mainContent">
+            <!-- <mat-card>
+            <button mat-raised-button color="primary">Primary</button>
+            <button mat-raised-button color="accent">Accent</button>
+            <button mat-raised-button color="warn">Warning</button>
+          </mat-card> -->
+
             <router-outlet></router-outlet>
           </div>
         </div>

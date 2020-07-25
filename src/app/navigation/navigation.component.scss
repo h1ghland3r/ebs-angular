@@ -69,14 +69,10 @@ mat-sidenav {
   }
 
   .logo {
-    height: 100%;
-    width: 50px;
-    padding: 7px;
-  }
-
-  .logo-full {
-    height: 100%;
-    width: 150px;
+    height: 40px;
+    width: auto;
+    position: relative;
+    top: -2px;
   }
 }
 

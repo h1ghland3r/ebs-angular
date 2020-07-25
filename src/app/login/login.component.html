@@ -1,21 +1,29 @@
-<div class="signin-content">
+<div class="container">
   <mat-card>
+    <mat-card-header>
+      <img src="../../assets/images/login-logo.png" alt="ebs logo" class="logo">
+    </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <p>Please login to continue</p>
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="User" formControlName="userName" required>
-          <mat-error *ngIf="isFieldInvalid('userName')">
-            Please inform your user name
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput type="password" placeholder="Password" formControlName="password" required>
-          <mat-error *ngIf="isFieldInvalid('userName')">
-            Please inform your password
-          </mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Login</button>
+        <div class="form-inputs-wrapper">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="User" formControlName="username" required>
+            <mat-error *ngIf="isInvalid('username')">
+              Please inform your user name
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput type="password" placeholder="Password" formControlName="password" required>
+            <mat-error *ngIf="isInvalid('password')">
+              Please inform your password
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <button type="submit" mat-raised-button color="primary" [disabled]="loading">
+          Login
+          <mat-icon *ngIf="!loading">login</mat-icon>
+          <mat-spinner *ngIf="loading" [diameter]="18"></mat-spinner>
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

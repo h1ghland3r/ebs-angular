@@ -2,11 +2,12 @@
 @include mat-core();
 
 /* custom theme */
-$ebs-angular-primary: mat-palette($mat-indigo);
-$ebs-angular-accent: mat-palette($mat-pink, A200, A100, A400);
-$ebs-angular-warn: mat-palette($mat-red);
+@import './theme.scss';
+$ebs-angular-primary: mat-palette($ebs-blue);
+$ebs-angular-accent: mat-palette($ebs-gray);
+$ebs-angular-warn: mat-palette($ebs-orange, 900);
 
-$ebs-angular-theme: mat-dark-theme($ebs-angular-primary, $ebs-angular-accent, $ebs-angular-warn);
+$ebs-angular-theme: mat-light-theme($ebs-angular-primary, $ebs-angular-accent, $ebs-angular-warn);
 @include angular-material-theme($ebs-angular-theme);
 
 /* You can add global styles to this file, and also import other style files */
@@ -14,3 +15,22 @@ $ebs-angular-theme: mat-dark-theme($ebs-angular-primary, $ebs-angular-accent, $e
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @import './utility.scss';
+@import '~ngx-toastr/toastr';
+
+/* Buttons */
+
+button {
+  &.mat-raised-button {
+    min-width: 140px;
+
+    .material-icons {
+      margin-left: 12px;
+    }
+  }
+
+  .mat-progress-spinner {
+    display: inline-block;
+    margin-left: 12px;
+  }
+}
+
