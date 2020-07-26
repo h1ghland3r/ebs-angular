@@ -21,8 +21,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
       map(result => result.matches)
     );
 
-  sidenavSub: Subscription;
-  routerSub: Subscription;
+  // sidenavSub: Subscription;
+  // routerSub: Subscription;
 
   currentUser: User;
 
@@ -37,45 +37,43 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
 
-    this.routerSub = this.router.events
-    .pipe(
-      filter(ev => ev instanceof NavigationEnd)
-    )
-    .subscribe((ev: NavigationEnd) => {
-      if (this.sidenav && this.sidenav.mode !== 'side') {
-        this.sidenav.close();
-      }
+    // this.routerSub = this.router.events
+    // .pipe(
+    //   filter(ev => ev instanceof NavigationEnd)
+    // )
+    // .subscribe((ev: NavigationEnd) => {
+    //   if (this.sidenav && this.sidenav.mode !== 'side') {
+    //     this.sidenav.close();
+    //   }
 
-      const sidenavContentElement = this.document.querySelector(
-        '.mat-sidenav-content',
-      );
+    //   const sidenavContentElement = this.document.querySelector('.mat-sidenav-content');
 
-      if (sidenavContentElement) {
-        sidenavContentElement.scrollTop = 0;
-      }
-    });
+    //   if (sidenavContentElement) {
+    //     sidenavContentElement.scrollTop = 0;
+    //   }
+    // });
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.sidenavSub = this.sidenav.openedChange.subscribe(() => {
-      if (this.menuButton) {
-        this.menuButton._elementRef.nativeElement.classList.remove('cdk-program-focused');
-        this.menuButton._elementRef.nativeElement.classList.add('cdk-mouse-focused');
-      }
-    });
+    // this.sidenavSub = this.sidenav.openedChange.subscribe(() => {
+    //   if (this.menuButton) {
+    //     this.menuButton._elementRef.nativeElement.classList.remove('cdk-program-focused');
+    //     this.menuButton._elementRef.nativeElement.classList.add('cdk-mouse-focused');
+    //   }
+    // });
   }
 
   ngOnDestroy(): void {
-    if (this.sidenavSub) {
-      this.sidenavSub.unsubscribe();
-    }
+    // if (this.sidenavSub) {
+    //   this.sidenavSub.unsubscribe();
+    // }
 
-    if (this.routerSub) {
-      this.routerSub.unsubscribe();
-    }
+    // if (this.routerSub) {
+    //   this.routerSub.unsubscribe();
+    // }
   }
 
   logout(): void {

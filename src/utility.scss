@@ -89,6 +89,11 @@
   justify-content: center;
 }
 
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
 .text-capitalize {
   text-transform: capitalize;
 }

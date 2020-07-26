@@ -1,5 +1,5 @@
-$mainToolbar_height: 56px;
-$footer_height: 80px;
+$toolbar-height: 56px;
+$footer-height: 80px;
 
 mat-sidenav {
   width: 200px;
@@ -15,12 +15,12 @@ mat-sidenav {
   }
 
   mat-toolbar {
-    min-height: $mainToolbar_height;
-    height: $mainToolbar_height;
+    min-height: $toolbar-height;
+    height: $toolbar-height;
 
     mat-toolbar-row {
-      min-height: $mainToolbar_height;
-      height: $mainToolbar_height;
+      min-height: $toolbar-height;
+      height: $toolbar-height;
     }
   }
 
@@ -37,7 +37,6 @@ mat-sidenav {
 
       &.mat-expanded {
         font-weight: 500;
-        color: #4b5264;
       }
 
       .mat-expansion-panel-body {
@@ -47,23 +46,19 @@ mat-sidenav {
   }
 }
 
-.icon {
-  padding: 0 14px;
-}
-
-.mainToolbar {
+.toolbar {
   position: sticky;
   top: 0;
   z-index: 2;
-  height: $mainToolbar_height;
+  height: $toolbar-height;
 
   mat-toolbar {
-    min-height: $mainToolbar_height;
-    height: $mainToolbar_height;
+    min-height: $toolbar-height;
+    height: $toolbar-height;
 
     mat-toolbar-row {
-      min-height: $mainToolbar_height;
-      height: $mainToolbar_height;
+      min-height: $toolbar-height;
+      height: $toolbar-height;
       padding: 0px;
     }
   }
@@ -72,12 +67,12 @@ mat-sidenav {
     height: 40px;
     width: auto;
     position: relative;
-    top: -2px;
+    top: 2px;
   }
 }
 
-.mainContent {
-  width: 100%;
+::ng-deep.mat-menu-panel {
+  min-width: 150px !important;
 }
 
 .mat-sidenav-container {
@@ -93,19 +88,21 @@ mat-sidenav {
   }
 }
 
-.app-footer {
-  height: $footer_height;
+.username-label {
+  cursor: context-menu;
+  pointer-events: none;
+}
+
+.main-content {
+  width: 100%;
+}
+
+.footer {
+  height: $footer-height;
+  background: #b2cadb;
 
   span {
-    padding: 20px;
+    color: #60707b;
+    font-weight: 500;
   }
-}
-
-.user-menu {
-  padding-right: 0;
-}
-
-.username-label {
-  cursor: default;
-  pointer-events: none;
 }

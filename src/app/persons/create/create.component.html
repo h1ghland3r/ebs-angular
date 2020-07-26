@@ -1,0 +1,46 @@
+<form [formGroup]="createForm">
+  <div class="mb-20">
+    <h2 mat-dialog-title>Create person</h2>
+  </div>
+  <mat-dialog-content class="mat-typography">
+    <div class="form-inputs-wrapper" fxFlex fxLayout.lt-md="column" fxLayout="row wrap" fxLayoutGap.gt-sm="10px grid" fxLayoutAlign="start stretch"
+    fxLayoutAlign.gt-sm="start center">
+      <mat-form-field fxFlex fxFlex.gt-sm="100">
+        <input matInput placeholder="Username" formControlName="username" required>
+        <mat-error *ngIf="isInvalid('username') || createForm.invalid">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex fxFlex.gt-sm="100">
+        <input matInput type="password" placeholder="Password" formControlName="password" required>
+        <mat-error *ngIf="isInvalid('password') || createForm.invalid">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex fxFlex.gt-sm="100">
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field fxFlex fxFlex.gt-sm="100">
+        <input type="number" matInput placeholder="Age" formControlName="age">
+      </mat-form-field>
+      <mat-form-field fxFlex fxFlex.gt-sm="100">
+        <input matInput type="number" placeholder="Family" formControlName="family">
+      </mat-form-field>
+      <mat-form-field fxFlex fxFlex.gt-sm="100">
+        <mat-select placeholder="Role" formControlName="role">
+          <mat-option value="normal">normal</mat-option>
+          <mat-option value="admin">admin</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="text-center">
+    <button type="button" mat-raised-button color="warn" (click)="cancel()">
+      Cancel
+    </button>
+    <button type="submit" mat-raised-button color="primary" (click)="create()">
+      Confirm
+    </button>
+  </mat-dialog-actions>
+</form>

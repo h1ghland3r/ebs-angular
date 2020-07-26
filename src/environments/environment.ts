@@ -6,7 +6,9 @@ export const environment = {
   production: false,
   apiUrl: 'https://backend1.recruitment.cybersecurity.cloud',
   endpoints: {
-    login: 'https://backend1.recruitment.cybersecurity.cloud/api/login'
+    login: 'https://backend1.recruitment.cybersecurity.cloud/api/login',
+    persons: 'https://backend1.recruitment.cybersecurity.cloud/api/persons',
+    families: 'https://backend1.recruitment.cybersecurity.cloud/api/families'
   }
 };
 

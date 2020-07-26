@@ -1,16 +1,17 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="false">
-    <mat-toolbar color="accent">Menu</mat-toolbar>
+    <mat-toolbar color="accent" class="mat-elevation-z1">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item class="invisible" routerLink="/"></a>
       <a mat-list-item routerLink="/persons" routerLinkActive="active">Persons</a>
-      <a mat-list-item routerLink="/families">Families</a>
+      <a mat-list-item routerLink="/families" routerLinkActive="active">Families</a>
     </mat-nav-list>
   </mat-sidenav>
+
   <mat-sidenav-content>
     <div fxLayout="column" class="default-content-container">
-      <div fxFlex="none" class="mainToolbar mat-elevation-z8">
+      <div fxFlex="none" class="toolbar mat-elevation-z2">
         <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap">
           <mat-toolbar-row>
             <button mat-icon-button #menuButton type="button" aria-label="sidenav toggle" class="sidenav-btn--toggle" (click)="sidenav.toggle()"
@@ -21,14 +22,14 @@
               <img src="../../assets/images/toolbar-logo.png" alt="ebs logo toolbar" class="logo">
             </span>
 
-            <span fxLayout="row" fxLayoutAlign="end center" class="mr-20">
-              <button mat-button [matMenuTriggerFor]="userMenu"class="user-menu">
+            <span fxLayout="row" fxLayoutAlign="end center">
+              <button mat-button [matMenuTriggerFor]="userMenu">
                 <mat-icon>account_circle</mat-icon>
                 <mat-icon>expand_more</mat-icon>
               </button>
               <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before">
                 <span mat-menu-item class="username-label">
-                  <mat-icon>account_circle</mat-icon>{{ currentUser.person_role }}
+                  <mat-icon class="username-label">account_circle</mat-icon>{{ currentUser.person_role }}
                 </span>
                 <mat-divider></mat-divider>
                 <button mat-menu-item (click)="logout()">
@@ -42,20 +43,14 @@
       </div>
       <div fxFlex="noshrink">
         <div fxLayout="row" fxLayoutAlign="center" fxLayoutWrap="wrap">
-          <div class="mainContent">
-            <!-- <mat-card>
-            <button mat-raised-button color="primary">Primary</button>
-            <button mat-raised-button color="accent">Accent</button>
-            <button mat-raised-button color="warn">Warning</button>
-          </mat-card> -->
-
+          <div class="main-content">
             <router-outlet></router-outlet>
           </div>
         </div>
       </div>
       <div fxFlex="none">
-        <footer class="app-footer" fxLayout="row" fxLayoutAlign="end start">
-          <span>
+        <footer class="footer" fxLayout="row" fxLayoutAlign="end center">
+          <span class="mr-20">
             2020 EBS Angular
           </span>
         </footer>

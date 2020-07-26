@@ -14,12 +14,12 @@ export class LoginComponent implements OnInit {
 
   loading = false;
   isSubmitted = false;
-  navUrl: string;
+  nextUrl: string;
   error = '';
 
   form = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required]
+    username: [null, Validators.required],
+    password: [null, Validators.required]
   });
 
   constructor(
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.navUrl = this.route.snapshot.queryParams.navUrl || '/';
+    this.nextUrl = '/persons';
   }
 
   isInvalid(field: string) {
@@ -57,13 +57,17 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         res => {
-          this.router.navigate([this.navUrl]);
-          this.toastr.success('Welcome');
+          this.router.navigate([this.nextUrl]);
+          this.toastr.success('Welcome', '', {
+            positionClass: 'toast-top-center'
+         });
         },
         error => {
           this.error = error;
           this.loading = false;
-          this.toastr.error(this.error);
+          this.toastr.error(this.error, '', {
+            positionClass: 'toast-top-center'
+         });
         });
   }
 }
