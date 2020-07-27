@@ -3,7 +3,7 @@
 
 /* custom theme */
 @import './theme.scss';
-$ebs-angular-primary: mat-palette($ebs-blue);
+$ebs-angular-primary: mat-palette($ebs-dark-blue);
 $ebs-angular-accent: mat-palette($ebs-gray);
 $ebs-angular-warn: mat-palette($ebs-orange, 900);
 
