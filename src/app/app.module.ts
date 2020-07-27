@@ -16,6 +16,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { PersonsComponent } from './persons/persons.component';
 import { PersonCreateComponent } from './persons/create/create.component';
 import { FamiliesComponent } from './families/families.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FamiliesComponent } from './families/families.component';
     PersonsComponent,
     PersonCreateComponent,
     FamiliesComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

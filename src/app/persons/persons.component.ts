@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { Person } from './../models/person';
 import { PersonCreateComponent } from '../../app/persons/create/create.component';
 import { PersonsService } from '../services/persons.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogComponent } from './../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-persons',
@@ -20,7 +21,7 @@ export class PersonsComponent implements OnInit {
   dataSource  = new MatTableDataSource<Person>();
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+  @ViewChild('table', {static: false}) table: MatTable<any>;
 
   constructor(
     private personsService: PersonsService,
@@ -60,17 +61,8 @@ export class PersonsComponent implements OnInit {
           this.personsService.getPerson(person.id)
             .subscribe(res => {
               const newPerson: any = res;
-              // this.dataSource = result;
-              // this.table.renderRows();
-              console.log(newPerson);
-              // this.dataSource.data = result;
-              // this.dataSource.connect().next(result);
-              // this.paginator._changePageSize(this.paginator.pageSize);
-
-              // this.dataSource.data = newRow;
-              // this.dataSource.paginator = this.paginator;
               this.dataSource.data.push(newPerson);
-              this.table.renderRows();
+              this.dataSource.data = this.dataSource.data;
             });
         }
       });
@@ -81,21 +73,21 @@ export class PersonsComponent implements OnInit {
   }
 
   delete(person): void {
-    this.personsService.deletePerson(person.id)
-      .subscribe(res => {
-        if (!!res) {
-          this.toastr.success('Person deleted', '', {
-            positionClass: 'toast-top-center'
-          });
-          // this.dataSource.data = this.dataSource.data.filter((p: Person) => p.id !== person.id);
-          // this.dataSource.paginator = this.paginator;
-          // this.changeDetector.detectChanges();
-          // this.table.renderRows();
-
-          // this.dataSource.data.splice(this.dataSource.data.indexOf(person.id), 1);
-          // this.dataSource.connect().next(this.dataSource.data);
-          // this.paginator._changePageSize(this.paginator.pageSize);
-          // this.dataSource._updateChangeSubscription();
+    const dialogRef = this.matDialog
+      .open(ConfirmationDialogComponent, {
+        width: '350px',
+        data: person,
+      })
+      .afterClosed().subscribe(result => {
+        if (result === 'Confirm') {
+          this.personsService.deletePerson(person.id)
+            .subscribe(res => {
+              this.toastr.success('Person deleted', '', {
+                positionClass: 'toast-top-center'
+              });
+              this.dataSource.data = this.dataSource.data.filter((p: Person) => p.id !== person.id);
+              this.table.renderRows();
+            });
         }
       });
   }
