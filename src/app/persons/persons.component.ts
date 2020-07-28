@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Person } from './../models/person';
 import { PersonCreateComponent } from '../../app/persons/create/create.component';
+import { PersonEditComponent } from '../../app/persons/edit/edit.component';
 import { PersonsService } from '../services/persons.service';
 import { ConfirmationDialogComponent } from './../shared/confirmation-dialog/confirmation-dialog.component';
 
@@ -60,8 +61,7 @@ export class PersonsComponent implements OnInit {
           });
           this.personsService.getPerson(person.id)
             .subscribe(res => {
-              const newPerson: any = res;
-              this.dataSource.data.push(newPerson);
+              this.dataSource.data.push(res);
               this.dataSource.data = this.dataSource.data;
             });
         }
@@ -69,7 +69,27 @@ export class PersonsComponent implements OnInit {
   }
 
   edit(person): void {
-
+    this.matDialog
+      .open(PersonEditComponent, {
+        panelClass: 'mat-dialog-fixed-width',
+        data: person
+      })
+      .afterClosed().subscribe((p: Person) => {
+        if (!!p) {
+          this.toastr.success('Person updated', '', {
+            positionClass: 'toast-top-center'
+          });
+          this.personsService.getPerson(p.id)
+            .subscribe(res => {
+              const index = this.dataSource.data.findIndex(res => res.id === person.id);
+              if (index > -1) {
+                this.dataSource.data[index] = res;
+                this.dataSource.data = this.dataSource.data;
+                this.table.renderRows();
+              }
+            });
+        }
+      });
   }
 
   delete(person): void {
@@ -85,7 +105,7 @@ export class PersonsComponent implements OnInit {
               this.toastr.success('Person deleted', '', {
                 positionClass: 'toast-top-center'
               });
-              this.dataSource.data = this.dataSource.data.filter((p: Person) => p.id !== person.id);
+              this.dataSource.data = this.dataSource.data.filter(res => res.id !== person.id);
               this.table.renderRows();
             });
         }

@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { PersonsComponent } from './persons/persons.component';
 import { PersonCreateComponent } from './persons/create/create.component';
+import { PersonEditComponent } from './persons/edit/edit.component';
 import { FamiliesComponent } from './families/families.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
 
@@ -25,6 +26,7 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
     NavigationComponent,
     PersonsComponent,
     PersonCreateComponent,
+    PersonEditComponent,
     FamiliesComponent,
     ConfirmationDialogComponent,
   ],
