@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Person } from './../models/person';
+import { User } from '../models/user';
+import { PersonsService } from '../services/persons.service';
+import { AuthService } from './../services/auth.service';
 import { PersonCreateComponent } from '../../app/persons/create/create.component';
 import { PersonEditComponent } from '../../app/persons/edit/edit.component';
-import { PersonsService } from '../services/persons.service';
 import { ConfirmationDialogComponent } from './../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -17,6 +19,7 @@ import { ConfirmationDialogComponent } from './../shared/confirmation-dialog/con
 export class PersonsComponent implements OnInit {
 
   error: '';
+  isAdmin = false;
 
   displayedColumns: string[] = ['id', 'name', 'age', 'family', 'actions'];
   dataSource  = new MatTableDataSource<Person>();
@@ -26,26 +29,38 @@ export class PersonsComponent implements OnInit {
 
   constructor(
     private personsService: PersonsService,
+    private authService: AuthService,
     private readonly matDialog: MatDialog,
-    private toastr: ToastrService,
-    private changeDetector: ChangeDetectorRef
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.getCurrentUser();
+    this.list();
+  }
+
+  getCurrentUser(): void {
+    this.authService.currentUser
+      .subscribe((user: User) => {
+        if (user.person_role === 'admin') {
+          this.isAdmin = true;
+        }
+      });
+  }
+
+  list(): void {
     this.personsService.getPersons()
       .subscribe(
         res => {
           const persons: any = res;
-          //this.dataSource = new MatTableDataSource<Person[]>(persons);
           this.dataSource.data = persons;
           this.dataSource.paginator = this.paginator;
-          // this.changeDetector.detectChanges();
         },
         error => {
           this.error = error;
           this.toastr.error(this.error, '', {
             positionClass: 'toast-top-center'
-         });
+          });
         });
   }
 
