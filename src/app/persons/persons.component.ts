@@ -52,8 +52,7 @@ export class PersonsComponent implements OnInit {
     this.personsService.getPersons()
       .subscribe(
         res => {
-          const persons: any = res;
-          this.dataSource.data = persons;
+          this.dataSource.data = res;
           this.dataSource.paginator = this.paginator;
         },
         error => {

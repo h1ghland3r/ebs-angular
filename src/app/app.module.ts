@@ -18,6 +18,7 @@ import { PersonCreateComponent } from './persons/create/create.component';
 import { PersonEditComponent } from './persons/edit/edit.component';
 import { FamiliesComponent } from './families/families.component';
 import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { CreateComponent } from './families/create/create.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confir
     PersonEditComponent,
     FamiliesComponent,
     ConfirmationDialogComponent,
+    CreateComponent,
   ],
   imports: [
     BrowserModule,

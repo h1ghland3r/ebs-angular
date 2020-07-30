@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { Family } from './../models/families';
+import { User } from '../models/user';
+import { AuthService } from './../services/auth.service';
+import { FamiliesService } from './../services/families.service';
+import { ConfirmationDialogComponent } from './../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-families',
@@ -7,9 +16,68 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FamiliesComponent implements OnInit {
 
-  constructor() { }
+  error: '';
+  isAdmin = false;
+
+  displayedColumns: string[] = ['id', 'name', 'max_persons', 'actions'];
+  dataSource  = new MatTableDataSource<Family>();
+
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild('table', {static: false}) table: MatTable<any>;
+
+  constructor(
+    private familiesService: FamiliesService,
+    private authService: AuthService,
+    private readonly matDialog: MatDialog,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
+    this.getCurrentUser();
+    this.list();
   }
 
+  getCurrentUser(): void {
+    this.authService.currentUser
+      .subscribe((user: User) => {
+        if (user.person_role === 'admin') {
+          this.isAdmin = true;
+        }
+      });
+  }
+
+  list(): void {
+    this.familiesService.getFamilies()
+      .subscribe(
+        res => {
+          console.log(res);
+          this.dataSource.data = res;
+          this.dataSource.paginator = this.paginator;
+        },
+        error => {
+          this.error = error;
+          this.toastr.error(this.error, '', {
+            positionClass: 'toast-top-center'
+          });
+        });
+  }
+
+  create(): void {
+    // this.matDialog
+    //   .open(PersonCreateComponent, {
+    //     panelClass: 'mat-dialog-fixed-width'
+    //   })
+    //   .afterClosed().subscribe((person: Person) => {
+    //     if (!!person) {
+    //       this.toastr.success('Person created', '', {
+    //         positionClass: 'toast-top-center'
+    //       });
+    //       this.personsService.getPerson(person.id)
+    //         .subscribe(res => {
+    //           this.dataSource.data.push(res);
+    //           this.dataSource.data = this.dataSource.data;
+    //         });
+    //     }
+    //   });
+  }
 }

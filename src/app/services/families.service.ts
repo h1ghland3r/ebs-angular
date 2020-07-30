@@ -12,7 +12,7 @@ export class FamiliesService {
     private http: HttpClient
   ) { }
 
-  getfamilies() {
+  getFamilies() {
     return this.http.get<Family[]>(`${environment.endpoints.families}`);
   }
 

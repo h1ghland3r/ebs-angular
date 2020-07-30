@@ -1,1 +1,41 @@
-<p>families works!</p>
+<div class="section-title mat-elevation-z1">
+  <div fxFlex="100">
+    <h1 fxFlex="50">Families Management</h1>
+    <span fxFlex="50" fxLayoutAlign="end center" class="button-action-create-wrapper">
+      <button type="button" mat-raised-button color="primary" (click)="create()" onclick="this.blur()" [disabled]="!isAdmin">
+        Create
+        <mat-icon [ngClass]="!isAdmin ? 'not-allowed' : ''">add</mat-icon>
+      </button>
+    </span>
+  </div>
+</div>
+
+<div class="content">
+  <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z2 mt-20">
+
+    <ng-container matColumnDef="id">
+      <th class="mat-column mat-column-15" mat-header-cell *matHeaderCellDef> Id </th>
+      <td class="mat-column mat-column-15" mat-cell *matCellDef="let family"> #{{family.id ? family.id : '-'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th class="mat-column mat-column-15" mat-header-cell *matHeaderCellDef> Name </th>
+      <td class="mat-column mat-column-15" mat-cell *matCellDef="let family"> {{family.name ? family.name : '-'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="max_persons">
+      <th class="mat-column mat-column-15" mat-header-cell *matHeaderCellDef> Max Persons Allowed </th>
+      <td class="mat-column mat-column-15" mat-cell *matCellDef="let family"> {{family.max_persons ? family.max_persons : '-'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th class="mat-column mat-column-15" mat-header-cell *matHeaderCellDef> Actions </th>
+      <td class="mat-column mat-column-15" mat-cell *matCellDef="let family">  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 100]" showFirstLastButtons></mat-paginator>
+</div>
