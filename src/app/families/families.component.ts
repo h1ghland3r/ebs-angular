@@ -7,6 +7,7 @@ import { Family } from './../models/families';
 import { User } from '../models/user';
 import { AuthService } from './../services/auth.service';
 import { FamiliesService } from './../services/families.service';
+import { FamilyCreateComponent } from './create/create.component';
 import { ConfirmationDialogComponent } from './../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -63,21 +64,22 @@ export class FamiliesComponent implements OnInit {
   }
 
   create(): void {
-    // this.matDialog
-    //   .open(PersonCreateComponent, {
-    //     panelClass: 'mat-dialog-fixed-width'
-    //   })
-    //   .afterClosed().subscribe((person: Person) => {
-    //     if (!!person) {
-    //       this.toastr.success('Person created', '', {
-    //         positionClass: 'toast-top-center'
-    //       });
-    //       this.personsService.getPerson(person.id)
-    //         .subscribe(res => {
-    //           this.dataSource.data.push(res);
-    //           this.dataSource.data = this.dataSource.data;
-    //         });
-    //     }
-    //   });
+    this.matDialog
+      .open(FamilyCreateComponent, {
+        panelClass: 'mat-dialog-fixed-width',
+        width: '100vw'
+      })
+      .afterClosed().subscribe((family: Family) => {
+        if (!!family) {
+          this.toastr.success('Family created', '', {
+            positionClass: 'toast-top-center'
+          });
+          this.familiesService.getFamily(family.id)
+            .subscribe(res => {
+              this.dataSource.data.push(res);
+              this.dataSource.data = this.dataSource.data;
+            });
+        }
+      });
   }
 }

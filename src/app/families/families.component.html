@@ -29,8 +29,8 @@
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <th class="mat-column mat-column-15" mat-header-cell *matHeaderCellDef> Actions </th>
-      <td class="mat-column mat-column-15" mat-cell *matCellDef="let family">  </td>
+      <th class="mat-column mat-column-15" mat-header-cell *matHeaderCellDef> Persons in the family </th>
+      <td class="mat-column mat-column-15" mat-cell *matCellDef="let family"> {{family.persons.length > 0 ? family.persons.length : 0}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

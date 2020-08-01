@@ -1,1 +1,90 @@
-<p>create works!</p>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-dialog-content class="mat-typography">
+    <mat-step [stepControl]="createForm">
+      <form [formGroup]="createForm">
+        <ng-template matStepLabel>Family Information</ng-template>
+        <div class="form-inputs-wrapper" fxFlex fxLayout.lt-md="column" fxLayout="row wrap"
+          fxLayoutGap.gt-sm="10px grid" fxLayoutAlign="start stretch" fxLayoutAlign.gt-sm="start center">
+          <mat-form-field fxFlex fxFlex.gt-sm="100">
+            <input matInput placeholder="Name" formControlName="name" required>
+            <mat-error *ngIf="isInvalid('name') || createForm.invalid">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex fxFlex.gt-sm="100">
+            <input type="number" matInput placeholder="Max Persons" formControlName="max_persons" required>
+            <mat-error *ngIf="isInvalid('max_persons') || createForm.invalid">
+              Max Persons is required (numbers only)
+            </mat-error>
+          </mat-form-field>
+          <mat-dialog-actions class="text-center full-width">
+            <button type="button" mat-raised-button color="warn" (click)="cancel()">
+              Cancel
+            </button>
+            <button mat-button matStepperNext mat-raised-button color="primary">
+              Next
+            </button>
+          </mat-dialog-actions>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>
+        Add persons in
+        <span [ngClass]="!!createForm.get('name').value ? 'bold' : ''">
+          {{!!createForm.get('name').value ? createForm.get('name').value: 'family'}}
+        </span>
+      </ng-template>
+      <h4 class="text-center">
+        People listed on the left column are not part of any family. Move them to the right column to create the
+        family with the chosen members.
+      </h4>
+      <div class="person-to-family-contanier">
+        <div class="list-container">
+          <h2>Available ({{available.length}})</h2>
+          <div class="list"
+               cdkDropList
+               #availableList="cdkDropList"
+               [cdkDropListData]="available"
+               [cdkDropListConnectedTo]="[chosenList]"
+               (cdkDropListDropped)="drop($event)">
+            <div class="box" *ngFor="let item of available" cdkDrag>
+              <mat-icon aria-label="person">face</mat-icon>
+              {{item.username}}
+            </div>
+          </div>
+        </div>
+        <div class="list-container">
+          <h2>Chosen
+            ({{chosen.length}}/{{!!createForm.get('max_persons').value ? createForm.get('max_persons').value: '-'}})
+          </h2>
+
+          <div class="list"
+               cdkDropList
+               #chosenList="cdkDropList"
+               [cdkDropListData]="chosen"
+               [cdkDropListConnectedTo]="[availableList]"
+               (cdkDropListDropped)="drop($event)">
+            <div class="box" *ngFor="let item of chosen" cdkDrag>
+              <mat-icon aria-label="person">face</mat-icon>
+              {{item.username}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <mat-dialog-actions class="text-center full-width">
+        <button type="button" mat-raised-button color="warn" (click)="cancel()">
+          Cancel
+        </button>
+        <button mat-button matStepperPrevious mat-raised-button color="accent">
+          Back
+        </button>
+        <button mat-button mat-raised-button color="primary"  (click)="save()">
+          Save
+        </button>
+      </mat-dialog-actions>
+    </mat-step>
+  </mat-dialog-content>
+
+</mat-horizontal-stepper>

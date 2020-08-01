@@ -5,13 +5,13 @@
   <mat-dialog-content class="mat-typography">
     <div class="form-inputs-wrapper" fxFlex fxLayout.lt-md="column" fxLayout="row wrap" fxLayoutGap.gt-sm="10px grid" fxLayoutAlign="start stretch"
     fxLayoutAlign.gt-sm="start center">
-      <mat-form-field fxFlex fxFlex.gt-sm="100">
+      <mat-form-field fxFlex fxFlex.gt-sm="50">
         <input matInput placeholder="Username" formControlName="username" required>
         <mat-error *ngIf="isInvalid('username') || createForm.invalid">
           Username is required
         </mat-error>
       </mat-form-field>
-      <mat-form-field fxFlex fxFlex.gt-sm="100">
+      <mat-form-field fxFlex fxFlex.gt-sm="50">
         <input matInput type="password" placeholder="Password" formControlName="password" required>
         <mat-error *ngIf="isInvalid('password') || createForm.invalid">
           Password is required
