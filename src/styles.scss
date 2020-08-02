@@ -34,6 +34,27 @@ button {
   }
 }
 
+/* Mat Dialog */
+
+@media screen and (max-width: 480px) {
+  .cdk-global-overlay-wrapper {
+    overflow: auto;
+    pointer-events: auto;
+  }
+
+  .mat-dialog-actions {
+    flex-direction: column;
+  }
+
+  .mat-dialog-actions .mat-button-base+.mat-button-base {
+    margin: 10px 0px 0px 0px!important;
+
+    &:last-child {
+      margin-bottom: 10px !important;
+    }
+  }
+}
+
 /* Toastr */
 
 .toast-top-center {
