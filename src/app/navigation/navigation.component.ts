@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
@@ -14,15 +14,12 @@ import { User } from '../models/user';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NavigationComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
-
-  // sidenavSub: Subscription;
-  // routerSub: Subscription;
 
   currentUser: User;
 
@@ -36,44 +33,9 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
   ) {
     this.authService.currentUser.subscribe(x => this.currentUser = x);
-
-    // this.routerSub = this.router.events
-    // .pipe(
-    //   filter(ev => ev instanceof NavigationEnd)
-    // )
-    // .subscribe((ev: NavigationEnd) => {
-    //   if (this.sidenav && this.sidenav.mode !== 'side') {
-    //     this.sidenav.close();
-    //   }
-
-    //   const sidenavContentElement = this.document.querySelector('.mat-sidenav-content');
-
-    //   if (sidenavContentElement) {
-    //     sidenavContentElement.scrollTop = 0;
-    //   }
-    // });
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    // this.sidenavSub = this.sidenav.openedChange.subscribe(() => {
-    //   if (this.menuButton) {
-    //     this.menuButton._elementRef.nativeElement.classList.remove('cdk-program-focused');
-    //     this.menuButton._elementRef.nativeElement.classList.add('cdk-mouse-focused');
-    //   }
-    // });
-  }
-
-  ngOnDestroy(): void {
-    // if (this.sidenavSub) {
-    //   this.sidenavSub.unsubscribe();
-    // }
-
-    // if (this.routerSub) {
-    //   this.routerSub.unsubscribe();
-    // }
   }
 
   logout(): void {
